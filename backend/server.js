@@ -15,6 +15,7 @@ const MODEL = "gemini-1.5-flash";
 app.get("/", (req, res) => {
   res.send("MedGemma backend is running 🚀");
 });
+
 app.post("/analyze", async (req, res) => {
   try {
     const { prompt } = req.body;
