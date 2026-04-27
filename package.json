@@ -1,12 +1,17 @@
 {
   "name": "medgemma",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "firebase": "^12.12.1",
     "framer-motion": "^12.38.0",
     "html5-qrcode": "^2.3.8",
     "lucide-react": "^1.8.0",
+    "node-fetch": "^3.3.2",
     "qrcode.react": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
