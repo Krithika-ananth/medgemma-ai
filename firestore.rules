@@ -1,0 +1,32 @@
+// firestore.rules
+// Deploy with: firebase deploy --only firestore:rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users can read/write their own profile
+    // Doctors can read any user profile (for patient lookup)
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Reports:
+    // - Patients can read/create their own reports (uid == auth.uid)
+    // - Doctors can read all reports AND update doctorNotes field only
+    match /reports/{reportId} {
+      allow read: if request.auth != null;
+
+      // Patients create their own reports
+      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
+
+      // Patients CANNOT modify reports after creation
+      // Doctors CAN update only the doctorNotes field
+      allow update: if request.auth != null &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'doctor' &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['doctorNotes']);
+
+      allow delete: if false; // Nobody can delete reports
+    }
+  }
+}

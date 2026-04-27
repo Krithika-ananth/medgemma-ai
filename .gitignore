@@ -1,0 +1,17 @@
+# Environment variables - NEVER upload to GitHub
+.env
+.env.local
+.env.production
+
+# Dependencies
+node_modules/
+
+# Build
+build/
+
+# Logs
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
